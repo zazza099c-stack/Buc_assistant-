@@ -19,13 +19,17 @@ with st.sidebar:
         "[👉 اضغط هنا لدعم استمرار المنصة](https://www.buymeacoffee.com)",
         unsafe_allow_html=True,
     )
-st.divider()
-st.caption("مساحه إعلانيه / إعلان ممول")
-st.info("مذكرات وملازم للبكالوريا الشامله متاحه الآن ..إضغط هنا للتفاصيل.")
-st.title("🎒مساعد البكالوريا: البرمجه والثقافه المالية")
+
+    st.divider()
+    st.caption("📢 إعلان ممول / مساحة إعلانية")
+    st.info("مذكرات وملازم البكالوريا الشاملة متاحة الآن.. اضغط للتفاصيل.")
+
+# 3. واجهة التطبيق الرئيسية
+st.title("🎓 مساعد البكالوريا: البرمجة والثقافة المالية")
 st.write(
-  "أنا معلمك الذكي أساعدك في حل تدريبات البرمجه والثقافه الماليه!"
+    "أنا معلمك الذكي، أساعدك في حل تدريبات البرمجة والثقافة المالية خطوة بخطوة!"
 )
+
 if not api_key:
     st.warning("⚠️ يرجى إدخال مفتاح Gemini API في القائمة الجانبية للبدء.")
     st.stop()
@@ -38,6 +42,7 @@ SYSTEM_INSTRUCTIONS = """
 1. البرمجة (Programming).
 2. والثقافة المالية (Financial Literacy).
 
+قواعد الإجابة:
 - في البرمجة: لا تعطِ الطالب كود الحل النهائي مباشرة. اشرح له الخطأ برمجياً واطرح أسئلة توجيهية تساعده على اكتشاف الحل بنفسه.
 - في الثقافة المالية: اشرح المفاهيم بأمثلة واقعية وبسيطة، وحل المسائل خطوة بخطوة.
 - أسلوبك مشجع، واضح، وباللغة العربية المبسطة.
@@ -49,7 +54,9 @@ if "messages" not in st.session_state:
 
 # نظام عداد الأسئلة لإظهار الإعلان بعد كل 3 أسئلة
 if "question_count" not in st.session_state:
-    st.session_state.question_count = 0# عرض الرسائل السابقة
+    st.session_state.question_count = 0
+
+# عرض الرسائل السابقة
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -60,7 +67,7 @@ if prompt := st.chat_input(
 ):
 
     # فحص ما إذا حان وقت ظهور الإعلان (بعد كل 3 أسئلة)
-  if st.session_state.question_count > 0 and st.session_state.question_count % 3 == 0:
+    if st.session_state.question_count > 0 and st.session_state.question_count % 3 == 0:
         ad_placeholder = st.empty()
         with ad_placeholder.container():
             st.warning(
@@ -74,7 +81,7 @@ if prompt := st.chat_input(
                 status_text.text(
                     f"الإعلان سينتهي خلال {seconds_left} ثانية..."
                 )
-              progress_bar.progress((30 - seconds_left) / 30)
+                progress_bar.progress((30 - seconds_left) / 30)
                 time.sleep(1)
 
             status_text.success("شكراً لك! يمكنك المتابعة الآن.")
@@ -87,7 +94,8 @@ if prompt := st.chat_input(
 
     with st.chat_message("user"):
         st.markdown(prompt)
-      with st.chat_message("assistant"):
+
+    with st.chat_message("assistant"):
         try:
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
@@ -101,7 +109,6 @@ if prompt := st.chat_input(
             st.markdown(bot_reply)
             st.session_state.messages.append(
                 {"role": "assistant", "content": bot_reply}
-              )
+            )
         except Exception as e:
             st.error(f"حدث خطأ أثناء الاتصال بالذكاء الاصطناعي: {e}")
-      
