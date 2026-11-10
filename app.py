@@ -3,17 +3,19 @@ import streamlit as st
 from google import genai
 from google. genai import types
 st.set_page_config(page_title="مساعد البكالوريا الذكي", page_icon="🎒")
+القائمة الجانبية (Sidebar)
 with st.sidebar:
-  st.header("⚙️ إعدادات المنصه")
-  api_key = st.text_input(
+    st.header("⚙️ إعدادات المنصة")
+    api_key = st.text_input(
         "أدخل مفتاح Gemini API الخاص بك:", type="password"
-  )
-st.divider()
-st.subheader("☕️ ادعم استمرارية الموقع")
-                    ,"(https://www.buymecoffee.com) [إضغط لاستمرار دعم المنصه 👈]"
+    )
 
-   unsafe_allow_html=True,
-)
+    st.divider()
+    st.subheader("☕ ادعم استمرارية الموقع")
+    st.markdown(
+        "[👉 اضغط هنا لدعم استمرار المنصة](https://www.buymeacoffee.com)",
+        unsafe_allow_html=True,
+    )
 st.divider()
 st.caption("مساحه إعلانيه / إعلان ممول")
 st.info("مذكرات وملازم للبكالوريا الشامله متاحه الآن ..إضغط هنا للتفاصيل.")
