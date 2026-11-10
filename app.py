@@ -1,9 +1,12 @@
 import time
 import streamlit as st
 from google import genai
-from google. genai import types
-st.set_page_config(page_title="مساعد البكالوريا الذكي", page_icon="🎒")
-القائمة الجانبية (Sidebar)
+from google.genai import types
+
+# 1. إعدادات واجهة الموقع
+st.set_page_config(page_title="مساعد البكالوريا الذكي", page_icon="🎓")
+
+# 2. القائمة الجانبية (Sidebar)
 with st.sidebar:
     st.header("⚙️ إعدادات المنصة")
     api_key = st.text_input(
