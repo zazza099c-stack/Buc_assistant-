@@ -5,9 +5,9 @@ from google. genai import types
 st.set_page_config(page_title="مساعد البكالوريا الذكي", page_icon="🎒")
 with st.sidebar:
   st.header("⚙️ إعدادات المنصه")
-  api_key = st.text_input( 
-                                  "type="password ,":الخاص بك Gemini API أدخل المفتاح"
-)
+  api_key = st.text_input(
+        "أدخل مفتاح Gemini API الخاص بك:", type="password"
+  )
 st.divider()
 st.subheader("☕️ ادعم استمرارية الموقع")
                     ,"(https://www.buymecoffee.com) [إضغط لاستمرار دعم المنصه 👈]"
